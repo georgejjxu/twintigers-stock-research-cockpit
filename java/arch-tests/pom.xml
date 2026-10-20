@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent><groupId>ca.twintigers.research</groupId><artifactId>research-parent</artifactId><version>1.0.0</version></parent>
+  <artifactId>arch-tests</artifactId>
+  <description>ArchUnit rules that enforce the hexagonal layering.</description>
+  <dependencies>
+    <dependency><groupId>ca.twintigers.research</groupId><artifactId>app-mcp</artifactId><scope>test</scope></dependency>
+    <dependency><groupId>ca.twintigers.research</groupId><artifactId>cli</artifactId><scope>test</scope></dependency>
+    <dependency><groupId>ca.twintigers.research</groupId><artifactId>app-worker</artifactId><scope>test</scope></dependency>
+    <dependency><groupId>ca.twintigers.research</groupId><artifactId>app-web</artifactId><scope>test</scope></dependency>
+    <dependency><groupId>com.tngtech.archunit</groupId><artifactId>archunit-junit5</artifactId><scope>test</scope></dependency>
+  </dependencies>
+</project>

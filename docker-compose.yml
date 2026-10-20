@@ -1,0 +1,51 @@
+# TwintigersInvestmentAdviser: the Stock Research Cockpit and its monitor, local use only (the port is bound to 127.0.0.1).
+#   Start / update:  start.cmd  (Windows)   or   docker compose up -d --build   (any OS)
+#   Stop:            stop.cmd               or   docker compose stop            (data kept)
+#   Status:          powershell -ExecutionPolicy Bypass -File scripts\status.ps1
+# Services:
+#   research-cockpit   the web app, http://localhost:8099; Claude's MCP server runs inside it (docker exec, see .mcp.json)
+#   research-monitor   price alerts every 30 minutes (ntfy), nightly database backup to backups/
+# Data: the Docker volume "twintigers_research-data" (accounts, transactions, watch list, alerts, price cache), copied
+# every evening to backups/research-YYYY-MM-DD.db. From the project folder the containers see only secrets.env
+# (read-only), java/config/ (rules, holidays; tune-rules writes rules.properties), docs/ (reports) and backups/.
+name: twintigers
+
+x-research: &research
+  image: twintigers/research:local
+  build: ./java
+  restart: unless-stopped
+  init: true
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+  volumes:
+    - research-data:/data
+    - ./secrets.env:/project/secrets.env:ro
+    - ./java/config:/project/java/config
+    - ./docs:/project/docs
+    - ./backups:/project/backups
+
+services:
+  research-cockpit:
+    <<: *research
+    container_name: research-cockpit
+    command: ["java", "-jar", "/app/research-web.jar", "--bind", "0.0.0.0"]
+    ports:
+      - 127.0.0.1:8099:8099
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8099 && printf 'GET /health HTTP/1.0\\r\\nHost: localhost:8099\\r\\n\\r\\n' >&3 && head -1 <&3 | grep -q ' 200 '"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  research-monitor:
+    <<: *research
+    container_name: research-monitor
+    command: ["java", "-jar", "/app/research-worker.jar", "loop", "--every", "30", "--backup-dir", "/project/backups", "--keep", "14"]
+
+volumes:
+  # Your data. Removed only by `docker compose down -v`, which no script here runs.
+  research-data:
+    name: twintigers_research-data

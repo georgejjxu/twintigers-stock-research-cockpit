@@ -1,0 +1,249 @@
+/* Stock Research Cockpit additions. The look comes from the vendored Twintiger stylesheets (vendor/twintiger, unmodified);
+   this file only adds what the Cockpit needs, using the same design tokens (var(--teal), var(--coral), ...). */
+
+.cockpit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.cockpit-grid > .full { grid-column: 1 / -1; }
+
+.cockpit-kpis { margin-top: 1rem; }
+
+.cockpit-source { color: var(--muted); font-size: var(--text-small); }
+.cockpit-source strong { color: var(--ink); }
+
+.cockpit-footer {
+    margin: 1.5rem 0 1rem;
+    color: var(--muted);
+    font-size: var(--text-micro);
+}
+
+.cockpit-notice {
+    margin: 0.5rem 0;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--status-warning-border);
+    border-radius: 8px;
+    background: var(--status-warning-background);
+    color: var(--status-warning-foreground);
+    font-size: var(--text-body);
+}
+
+.cockpit-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.6rem 0.9rem;
+    margin: 0.4rem 0 0.9rem;
+}
+.cockpit-form.inline { margin: 0; }
+.cockpit-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    color: var(--muted);
+    font-size: var(--text-small);
+    font-weight: 600;
+}
+.cockpit-form input, .cockpit-form select {
+    min-width: 8rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font: inherit;
+    color: var(--ink);
+    background: var(--surface);
+}
+.cockpit-form .primary-button, .cockpit-form .secondary-button {
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+}
+.cockpit-form .primary-button {
+    border: 1px solid var(--action-primary-border);
+    background: var(--action-primary-background);
+    color: var(--action-primary-foreground);
+}
+.cockpit-form .primary-button:hover { background: var(--action-primary-hover); }
+.cockpit-form .secondary-button {
+    border: 1px solid var(--action-secondary-border);
+    background: var(--action-secondary-background);
+    color: var(--action-secondary-foreground);
+}
+.text-button.danger { color: var(--action-destructive-background); }
+
+.summary-status-badge.watch {
+    border-color: var(--status-warning-border);
+    background: var(--status-warning-background);
+    color: var(--status-warning-foreground);
+}
+
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.neg { color: var(--coral); }
+td.pos { color: var(--teal); }
+.muted { color: var(--muted); }
+.small { font-size: var(--text-small); }
+.cockpit-symbol { font-weight: 650; color: var(--teal); text-decoration: none; }
+.cockpit-symbol:hover { text-decoration: underline; }
+
+.cockpit-chart { width: 100%; height: 480px; }
+.cockpit-subhead { margin: 1rem 0 0.4rem; font-size: 0.95rem; }
+.cockpit-list { margin: 0.4rem 0; padding-left: 1.1rem; }
+.cockpit-list li { margin: 0.25rem 0; }
+.cockpit-details pre {
+    max-height: 22rem;
+    overflow: auto;
+    padding: 0.7rem;
+    border-radius: 6px;
+    background: var(--wash);
+    font-size: var(--text-micro);
+    white-space: pre-wrap;
+}
+
+.cockpit-chart-toolbar { display: flex; align-items: center; gap: 1rem; margin: 0 0 0.5rem; }
+.cockpit-chart-toolbar label { color: var(--muted); font-size: var(--text-small); font-weight: 600; }
+.cockpit-chart-toolbar select { margin-left: 0.4rem; padding: 0.3rem 0.45rem; border: 1px solid var(--border); border-radius: 6px; font: inherit; }
+.cockpit-chart-wrap { position: relative; }
+.cockpit-chart-tip {
+    position: absolute;
+    z-index: 5;
+    max-width: 22rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: 0 6px 18px rgba(16, 47, 69, 0.16);
+    font-size: var(--text-small);
+    pointer-events: none;
+}
+.cockpit-chart-tip > div { margin-top: 0.35rem; }
+.cockpit-tip-rule { display: block; font-weight: 650; color: var(--ink); }
+.cockpit-tip-rule.warning { color: var(--action-destructive-background); }
+.cockpit-tip-rule.watch { color: var(--status-warning-foreground); }
+.cockpit-tip-detail { display: block; color: var(--muted); }
+.cockpit-note-form input { width: 100%; min-width: 9rem; padding: 0.25rem 0.4rem; border: 1px solid transparent; border-radius: 5px; font: inherit; background: transparent; }
+.cockpit-note-form input:hover, .cockpit-note-form input:focus { border-color: var(--border); background: var(--surface); }
+
+.cockpit-tx-form, .cockpit-confirm {
+    margin: 0.5rem 0 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--wash);
+}
+.cockpit-confirm { border-color: var(--status-warning-border); background: var(--status-warning-background); }
+.cockpit-problems { margin: 0.3rem 0 0.6rem; padding-left: 1.1rem; color: var(--action-destructive-background); }
+.cockpit-success {
+    margin: 0.5rem 0;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--action-secondary-border);
+    border-radius: 8px;
+    background: var(--mint);
+    color: var(--teal);
+    font-size: var(--text-body);
+}
+.cockpit-form .danger-button {
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--action-destructive-border);
+    border-radius: 6px;
+    background: var(--action-destructive-background);
+    color: var(--action-destructive-foreground);
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+}
+.cockpit-form .danger-button:hover { background: var(--action-destructive-hover); }
+.cockpit-form button.secondary-button[type="button"] {
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--action-secondary-border);
+    border-radius: 6px;
+    background: var(--action-secondary-background);
+    color: var(--action-secondary-foreground);
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+}
+td.nowrap { white-space: nowrap; }
+
+/* Signal rows open an explanation on the chart */
+.cockpit-signal-row { cursor: pointer; }
+.cockpit-signal-row:hover, .cockpit-signal-row:focus-visible { background: #f2f7f7; outline: none; }
+.cockpit-signal-row.active { background: #e6f2f0; box-shadow: inset 3px 0 0 #167b73; }
+.cockpit-explain { margin-top: 12px; padding: 14px 16px; border: 1px solid #d9e1e4; border-radius: 10px; background: #fbfcfc; }
+.cockpit-explain h3 { margin: 0 0 6px; }
+.cockpit-explain-why { margin: 0 0 6px; font-weight: 600; }
+.cockpit-explain-facts { margin: 8px 0; border-collapse: collapse; font-size: 0.9rem; }
+.cockpit-explain-facts th { text-align: left; font-weight: 500; padding: 3px 18px 3px 0; color: #4b5b62; }
+.cockpit-explain-facts td { padding: 3px 0; font-variant-numeric: tabular-nums; }
+
+/* Performance page */
+.cockpit-alloc { width: 100%; border-collapse: collapse; }
+.cockpit-alloc td { padding: 4px 6px; border-bottom: 1px solid #eef2f3; white-space: nowrap; }
+.cockpit-alloc-bar { width: 45%; }
+.cockpit-alloc-bar span { display: block; height: 10px; border-radius: 5px; background: #167b73; min-width: 2px; }
+.cockpit-pos { color: #167b73; }
+.cockpit-neg { color: #da6655; }
+
+/* Quote-page chart (Stock Detail) */
+.qc-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 0 10px; }
+.qc-seg { display: inline-flex; border: 1px solid #d9e1e4; border-radius: 8px; overflow: hidden; }
+.qc-seg button { border: 0; border-right: 1px solid #d9e1e4; background: #fff; padding: 5px 10px; font: inherit; font-size: 0.85rem;
+  color: #12212e; cursor: pointer; }
+.qc-seg button:last-child { border-right: 0; }
+.qc-seg button:hover { background: #f2f7f7; }
+.qc-seg button[aria-pressed="true"] { background: #167b73; color: #fff; }
+.qc-dates { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; }
+.qc-dates label, .qc-row > label { font-size: 0.85rem; color: #4b5b62; display: inline-flex; align-items: center; gap: 6px; }
+.qc-dates input, .qc-row select { font: inherit; font-size: 0.85rem; padding: 3px 6px; border: 1px solid #d9e1e4; border-radius: 6px; }
+.qc-check { cursor: pointer; }
+.qc-zoom { margin-left: auto; }
+.qc-main { position: relative; }
+.qc-main .cockpit-chart { height: 460px; outline: none; cursor: crosshair; }
+.qc-readout { position: absolute; top: 6px; left: 8px; z-index: 3; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.88); padding: 3px 8px; border-radius: 6px; pointer-events: none; max-width: calc(100% - 90px); }
+.qc-readout b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.qc-r50 { color: #3268a8; }
+.qc-r200 { color: #b07d1e; }
+.qc-rvwap { color: #8a5cc7; }
+.qc-rsig { font-weight: 600; }
+.qc-rsig.warning { color: #da6655; }
+.qc-rsig.watch { color: #b07d1e; }
+.qc-select { position: absolute; top: 0; bottom: 0; z-index: 2; background: rgba(22, 123, 115, 0.14);
+  border-left: 1px solid #167b73; border-right: 1px solid #167b73; pointer-events: none; }
+.qc-overview-wrap { position: relative; height: 56px; margin-top: 6px; border: 1px solid #d9e1e4; border-radius: 6px; overflow: hidden; }
+.qc-overview { position: absolute; inset: 0; cursor: pointer; }
+.qc-window { position: absolute; top: 0; bottom: 0; z-index: 2; background: rgba(22, 123, 115, 0.16); border: 1px solid #167b73;
+  border-radius: 3px; cursor: grab; }
+.qc-window:active { cursor: grabbing; }
+.qc-handle { position: absolute; top: 0; bottom: 0; width: 8px; background: rgba(22, 123, 115, 0.45); cursor: ew-resize; }
+.qc-handle.left { left: -1px; }
+.qc-handle.right { right: -1px; }
+.qc-status { margin: 6px 0 0; }
+
+.qc [hidden] { display: none !important; }
+
+/* Markets page */
+.mk-sentiment { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-bottom: 10px; }
+.mk-gauge-box { text-align: center; }
+.mk-gauge { width: 260px; max-width: 100%; height: auto; }
+.mk-score { font-size: 30px; font-weight: 700; fill: #12212e; }
+.mk-end { font-size: 11px; fill: #7b878a; }
+.mk-gauge-label { margin: 0; }
+.mk-rating { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 0.8rem; font-weight: 600; text-transform: capitalize; }
+.mk-extreme-fear { background: #f6d5d1; color: #9b2c20; }
+.mk-fear { background: #fbe3cc; color: #9a5413; }
+.mk-neutral { background: #ececec; color: #4b5b62; }
+.mk-greed { background: #dcefd3; color: #3d6b2a; }
+.mk-extreme-greed { background: #c9e7d6; color: #1f6040; }
+.mk-bar span.mk-extreme-fear { background: #c0392b; }
+.mk-bar span.mk-fear { background: #e67e22; }
+.mk-bar span.mk-neutral { background: #b8b8b8; }
+.mk-bar span.mk-greed { background: #7fb069; }
+.mk-bar span.mk-extreme-greed { background: #2e8b57; }
+.mk-history { height: 220px; }
+
+/* FIRE */
+tr.fire-hit td { background: #eaf5f3; }

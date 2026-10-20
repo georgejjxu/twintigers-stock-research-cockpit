@@ -1,0 +1,611 @@
+/* Composable page-heading primitives for the static HTML + vanilla JavaScript UI. */
+.page-title-block {
+    display: grid;
+    min-width: 0;
+    gap: 0.35rem;
+}
+
+.page-title-block > :is(h1, p) { margin: 0; }
+
+/*
+ * Marks a page that checks the software rather than the plan (Confidence Check, History Check),
+ * so a planner who arrives there knows it is not one more forecast to weigh.
+ */
+.page-diagnostic-label {
+    width: fit-content;
+    padding: 0.12rem 0.55rem;
+    border: 1px solid #c9d6dd;
+    border-radius: var(--pill-radius);
+    color: #4d6475;
+    background: #f3f6f8;
+    font-size: var(--text-micro);
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.diagnostic-note {
+    margin: 0;
+    padding: 0.6rem 0.85rem;
+    border-left: 3px solid #9fb3c0;
+    border-radius: 0.4rem;
+    color: #3f5566;
+    background: #f5f8fa;
+    font-size: var(--text-small);
+}
+
+.page-breadcrumb {
+    width: fit-content;
+    color: var(--teal);
+    font-size: var(--text-small);
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.page-breadcrumb:hover,
+.page-breadcrumb:focus-visible { text-decoration: underline; }
+
+.app-top-bar,
+.header-actions,
+.view-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--header-row-gap);
+    min-width: 0;
+}
+
+.app-top-bar,
+.header-actions { justify-content: flex-end; }
+
+.header-actions > :is(button, a),
+.view-toolbar > :is(button, a, select) { min-height: var(--control-height); }
+
+/*
+ * The Filters button is one control, the same size wherever it stands.
+ *
+ * It appears in a context bar, a view toolbar, a tab row, a run-controls row and the study pages'
+ * pill row, and each of those rows levels its own children -- so the same button rendered at three
+ * heights across the product depending on the company it kept. It takes the compact control height
+ * everywhere instead, written after the row rules so none of them override it.
+ */
+.filter-toolbar-button,
+.view-toolbar > .filter-toolbar-button,
+.context-bar .filter-toolbar-button,
+.header-actions .filter-toolbar-button,
+.study-view-toolbar .filter-toolbar-button {
+    box-sizing: border-box;
+    align-self: center;
+    min-width: 6.5rem;
+    min-height: var(--control-height-compact);
+    padding: 0.35rem 0.75rem;
+}
+
+.context-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--header-row-gap);
+    min-width: 0;
+}
+
+/* Controls share the context bar's row instead of each claiming a band around it.
+   .header-actions came from .page-header, where it matched navigation.css's
+   `> :not(:first-child):not(.user-account):not(.page-header-utilities)` and spanned the full width
+   on row two; .filter-button came from a .view-toolbar that was the first child of <main>, which
+   started the filter panel a whole band above the content it filters. Both rows carried a couple
+   of buttons over a context bar that was already half empty.
+
+   They sit as one group at the trailing edge: the first takes the slack, the rest follow at the
+   normal gap. Giving every one of them `margin-left: auto` would instead spread the free space
+   between them. Below 1199px the `flex: 1 1 100%` further down still gives .header-actions its own
+   line, which is what a narrow viewport wants. */
+.context-bar > :is(.header-actions, .filter-button) {
+    margin-left: auto;
+}
+
+.context-bar > :is(.header-actions, .filter-button) ~ :is(.header-actions, .filter-button) {
+    margin-left: 0;
+}
+
+/* Applied-filter chips came into the bar with the Filters button. They keep their own width here:
+   growing into the slack, as they did in the old toolbar row, would leave nothing for the button's
+   `margin-left: auto` to consume and pull it back off the trailing edge. */
+.context-bar .active-filter-chips {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.page-context-bar {
+    margin-inline: var(--page-gutter);
+    padding-block: var(--header-row-gap);
+}
+
+.context-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    min-width: 0;
+    min-height: var(--control-height-compact);
+    padding: 0.3rem 0.65rem;
+    border: 1px solid #d3e2df;
+    border-radius: var(--pill-radius);
+    color: #43615f;
+    background: #f7fbfa;
+    font-size: var(--header-context-size);
+    line-height: 1.2;
+}
+
+.context-chip-label { flex: none; color: var(--muted); }
+
+/*
+ * One height for everything standing in the context bar.
+ *
+ * The bar collects things styled where each was written -- a chip, a badge, the disclosure, a
+ * Details button, the Report status control -- and each carried its own height, so the row read as
+ * a line of staggered pills. They are levelled here, at the bar, rather than every owner being
+ * asked to remember: --control-height-compact is the same height the chips already stand at.
+ */
+.page-context-bar :is(.context-chip, .header-badge, .context-detail-toggle, .hero-action,
+        .report-lifecycle-control, button, select, input) {
+    box-sizing: border-box;
+    min-height: var(--control-height-compact);
+}
+
+.page-context-bar :is(button, .hero-action, .context-detail-toggle, a.compare-details-link) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 0;
+}
+
+.page-context-bar :is(select, input, .report-lifecycle-control) { padding-block: 0; }
+
+/*
+ * A control inside a chip or the status pill sits within that height rather than adding to it: the
+ * margin a form control carries elsewhere would push its chip taller than the row.
+ */
+.page-context-bar :is(.context-chip, .report-lifecycle-control) :is(select, input, button) {
+    align-self: stretch;
+    min-height: 0;
+    margin: 0;
+}
+
+/* Folded away until the reader opens the bar; see organizeContextBar in page-header.js. */
+.page-context-bar[data-context-collapsed="true"] .is-context-detail { display: none; }
+
+.context-detail-toggle {
+    flex: none;
+    padding-inline: 0.7rem;
+    border: 1px dashed var(--border);
+    border-radius: var(--pill-radius);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: var(--header-context-size);
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+.context-detail-toggle:hover,
+.context-detail-toggle:focus-visible {
+    border-style: solid;
+    color: var(--text);
+}
+
+@media print {
+    /* A printed page has no disclosure to press, so it carries the whole context. */
+    .page-context-bar[data-context-collapsed="true"] .is-context-detail { display: inline-flex; }
+    .context-detail-toggle { display: none; }
+}
+
+.context-chip-value {
+    overflow: hidden;
+    min-width: 0;
+    max-width: min(30rem, 42vw);
+    color: var(--ink);
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+button.context-chip,
+a.context-chip,
+.context-chip[data-context-interactive="true"] {
+    border-color: #9fc8c1;
+    color: var(--teal);
+    background: #eef7f4;
+    cursor: pointer;
+}
+
+button.context-chip:hover,
+button.context-chip:focus-visible,
+a.context-chip:hover,
+a.context-chip:focus-visible,
+.context-chip[data-context-interactive="true"]:hover,
+.context-chip[data-context-interactive="true"]:focus-visible {
+    border-color: #78b5ab;
+    background: #fff;
+    outline: 3px solid rgba(22, 123, 115, 0.2);
+    outline-offset: 2px;
+}
+
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.65rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--pill-radius);
+    color: var(--badge-neutral-color);
+    background: var(--badge-neutral-background);
+    font-size: var(--text-micro);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.header-badge[data-tone="success"] { color: var(--badge-success-color); background: var(--badge-success-background); }
+.header-badge[data-tone="danger"] { color: var(--badge-danger-color); background: var(--badge-danger-background); }
+.header-badge[data-tone="warning"] { color: #704f00; background: #fff0bd; }
+
+.plan-status-badge,
+.document-state-badge,
+.data-freshness-badge { white-space: nowrap; }
+
+.document-state-badge::before,
+.data-freshness-badge::before {
+    margin-right: 0.3rem;
+    color: currentColor;
+    font-size: 0.65em;
+    content: "●";
+}
+
+.view-toolbar { justify-content: flex-start; width: 100%; max-width: 100%; }
+.view-toolbar .active-filter-chips { flex: 1 1 12rem; min-width: 0; margin-bottom: 0; }
+.view-toolbar .filter-button { margin-left: auto; }
+
+.filter-active-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.35rem;
+    min-height: 1.35rem;
+    padding-inline: 0.28rem;
+    border-radius: var(--pill-radius);
+    color: #fff;
+    background: var(--teal);
+    font-size: var(--text-micro);
+    font-weight: 850;
+    font-variant-numeric: tabular-nums;
+}
+
+.filter-active-count[hidden] { display: none; }
+
+.header-notice {
+    margin: 0;
+    padding: 0.75rem 0.9rem;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--control-radius) var(--control-radius) 0;
+    color: #4e5964;
+    background: #fff9e8;
+    font-size: var(--text-body);
+    line-height: 1.45;
+}
+
+/* Must come after .header-notice, not before it. Every notice in the app carries both classes, and
+   `margin: 0` above is a shorthand — set earlier, the gutter here was reset along with the block
+   margins, and the notice ran the full width of the page while the title, chips and content beside
+   it stayed inset. Same specificity, so source order is what decides. */
+.page-header-notice {
+    margin-block: var(--header-row-gap);
+    margin-inline: var(--page-gutter);
+}
+
+[data-header-optional]:empty,
+[data-header-optional][hidden] { display: none !important; }
+
+.planning-progress,
+.page-purpose-summary,
+.global-result-warning {
+    margin-inline: var(--page-gutter);
+}
+
+.planning-progress {
+    display: grid;
+    grid-template-columns: auto minmax(8rem, 1fr) auto;
+    align-items: center;
+    gap: 0.55rem 0.8rem;
+    padding-block: 0.55rem;
+    border-bottom: 1px solid #dfe9e7;
+}
+
+.planning-progress-copy {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    white-space: nowrap;
+}
+
+.planning-progress-label {
+    color: var(--muted);
+    font-size: var(--text-micro);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.planning-progress-copy strong {
+    color: var(--ink);
+    font-size: var(--text-small);
+}
+
+.planning-progress-track {
+    height: 0.4rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #dfe9e7;
+}
+
+.planning-progress-track span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--teal);
+}
+
+.planning-progress-next {
+    color: var(--muted);
+    font-size: var(--text-micro);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.page-purpose-summary,
+.global-result-warning {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.35fr) minmax(18rem, 1fr);
+    gap: 0.4rem 1rem;
+    margin-block: 0.65rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: var(--control-radius);
+    font-size: var(--text-small);
+    line-height: 1.45;
+}
+
+.page-purpose-summary { border: 1px solid #d7e7e4; color: #405a57; background: #f7fbfa; }
+.page-purpose-summary strong { color: var(--ink); }
+
+/* A context bar that carries the page purpose (data-purpose-inline in page-header.js): the bar takes
+   the purpose box's look, and the purpose text takes the slack ahead of the badges and action. */
+.page-context-bar-with-purpose {
+    margin-block: 0.65rem;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid #d7e7e4;
+    border-radius: var(--control-radius);
+    background: #f7fbfa;
+}
+
+.page-purpose-inline {
+    display: flex;
+    flex: 1 1 24rem;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 1rem;
+    min-width: 0;
+    color: #405a57;
+    font-size: var(--text-small);
+    line-height: 1.45;
+}
+
+.page-purpose-inline strong { color: var(--ink); }
+
+.global-result-warning { border: 1px solid #e4bd55; color: #594300; background: #fff7d9; }
+.global-result-warning strong::before { margin-right: 0.4rem; content: "⚠"; }
+.global-result-warning[hidden] { display: none; }
+
+.ui-state {
+    display: grid;
+    grid-template-columns: minmax(11rem, auto) minmax(14rem, 1fr) auto;
+    align-items: center;
+    gap: 0.4rem 0.8rem;
+    min-width: 0;
+    padding: 0.85rem 1rem;
+    border: 1px dashed #b9cbc8;
+    border-radius: var(--control-radius);
+    color: #49615e;
+    background: #f7faf9;
+}
+
+.ui-state-progress { border-style: solid; border-color: #9fc8c1; background: #eef7f4; }
+.ui-state-error { border-style: solid; border-color: #d98d86; color: #762f2a; background: #fff1ef; }
+.ui-state-action { justify-self: end; }
+.ui-state[hidden] { display: none; }
+
+@media (max-width: 1199px) {
+    .header-actions { flex: 1 1 100%; }
+    .context-chip-value { max-width: min(25rem, 58vw); }
+
+    .view-toolbar,
+    .dashboard-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .view-toolbar > *,
+    .dashboard-tabs > * { flex: 0 0 auto; }
+
+    .view-toolbar .active-filter-chips { flex: 1 1 12rem; }
+}
+
+@media (max-width: 767px) {
+    .planning-progress {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+    .planning-progress-track { grid-column: 1 / -1; grid-row: 2; }
+    .planning-progress-next { grid-column: 2; grid-row: 1; }
+    .page-purpose-summary,
+    .global-result-warning,
+    .ui-state { grid-template-columns: 1fr; }
+    .ui-state-action { justify-self: start; }
+    .page-title-block,
+    .app-top-bar,
+    .header-actions,
+    .context-bar { width: 100%; }
+
+    .app-top-bar,
+    .header-actions { justify-content: flex-start; }
+    .context-chip { max-width: 100%; }
+    .context-chip-value { max-width: calc(100vw - 10rem); }
+
+    .page-header { align-items: flex-start; }
+
+    .app-top-bar {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .app-top-bar .user-account {
+        width: var(--control-height);
+        min-width: var(--control-height);
+        padding: 0.25rem;
+        justify-content: center;
+    }
+
+    .app-top-bar .user-account-copy { display: none; }
+
+    .app-top-bar .user-account.account-context,
+    .app-top-bar .account-context-trigger {
+        width: var(--control-height);
+        min-width: var(--control-height);
+        max-width: var(--control-height);
+    }
+
+    .app-top-bar .account-context-trigger {
+        display: inline-grid;
+        grid-template-columns: 1fr;
+        place-items: center;
+        padding: 0.25rem;
+    }
+
+    .app-top-bar :is(.account-context-copy, .account-context-status-icon, .account-context-chevron) {
+        display: none;
+    }
+
+    .app-top-bar .dollar-basis-control {
+        gap: 0.3rem;
+        padding-left: 0.5rem;
+    }
+
+    .app-top-bar .dollar-basis-title { font-size: var(--text-micro); }
+    .app-top-bar .dollar-basis-button { padding-inline: 0.5rem; }
+
+    .view-toolbar {
+        width: auto;
+        max-width: 100%;
+        padding-bottom: 0.2rem;
+    }
+
+    .page-context-bar { width: auto; }
+    .context-bar { align-items: stretch; }
+    .header-badge { flex: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-header *,
+    .context-bar *,
+    .view-toolbar * {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/*
+ * The one empty state of the analysis pages (PageHeader.renderAnalysisEmpty): what is missing,
+ * what the result will show, how long it takes, how long it stays current, and one action.
+ */
+.analysis-empty-state {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1.2rem 1.3rem;
+    border: 1px dashed #bcd3ce;
+    border-radius: 14px;
+    background: #f7faf9;
+}
+
+.analysis-empty-state > * { margin: 0; }
+
+.analysis-empty-eyebrow {
+    color: var(--muted);
+    font-size: var(--text-micro);
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.analysis-empty-state[data-analysis-empty="out-of-date"] .analysis-empty-eyebrow { color: #8a5a00; }
+
+.analysis-empty-title {
+    color: var(--ink);
+    font-size: 1.05rem;
+}
+
+.analysis-empty-summary,
+.analysis-empty-reason,
+.analysis-empty-hint {
+    max-width: 68ch;
+    color: var(--muted);
+    font-size: var(--text-small);
+    line-height: 1.5;
+}
+
+.analysis-empty-facts {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(12rem, 1fr);
+    gap: 0.8rem 1.4rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid #dfe9e7;
+}
+
+.analysis-empty-facts h3,
+.analysis-empty-facts dt {
+    margin: 0 0 0.25rem;
+    color: var(--ink);
+    font-size: var(--text-small);
+    font-weight: 700;
+}
+
+.analysis-empty-facts ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: #3f5566;
+    font-size: var(--text-small);
+    line-height: 1.5;
+}
+
+.analysis-empty-facts dl {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+}
+
+.analysis-empty-facts dd {
+    margin: 0;
+    color: #3f5566;
+    font-size: var(--text-small);
+    line-height: 1.45;
+}
+
+.analysis-empty-action { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+
+.analysis-empty-blocked {
+    margin: 0;
+    color: var(--ink);
+    font-size: var(--text-small);
+    font-weight: 700;
+}
+
+@media (max-width: 720px) {
+    .analysis-empty-facts { grid-template-columns: minmax(0, 1fr); }
+}

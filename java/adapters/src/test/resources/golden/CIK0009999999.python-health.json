@@ -1,0 +1,173 @@
+{
+ "columns": [
+  {
+   "kind": "FY",
+   "start": "2023-01-01",
+   "end": "2023-12-31"
+  },
+  {
+   "kind": "FY",
+   "start": "2024-01-01",
+   "end": "2024-12-31"
+  },
+  {
+   "kind": "FY",
+   "start": "2025-01-01",
+   "end": "2025-12-31"
+  },
+  {
+   "kind": "YTD",
+   "start": "2025-01-01",
+   "end": "2025-06-30"
+  },
+  {
+   "kind": "YTD",
+   "start": "2026-01-01",
+   "end": "2026-06-30"
+  }
+ ],
+ "rows": {
+  "Revenue": [
+   990000000.0,
+   1100000000.0,
+   1150000000.0,
+   560000000.0,
+   540000000.0
+  ],
+  "Revenue growth %": [
+   10.0,
+   11.1111,
+   4.5455,
+   null,
+   -3.5714
+  ],
+  "Operating income": [
+   160000000.0,
+   187000000.0,
+   155000000.0,
+   84000000.0,
+   70000000.0
+  ],
+  "Operating margin %": [
+   16.1616,
+   17.0,
+   13.4783,
+   15.0,
+   12.963
+  ],
+  "Net income": [
+   120000000.0,
+   140000000.0,
+   125000000.0,
+   62000000.0,
+   50000000.0
+  ],
+  "Operating cash flow": [
+   150000000.0,
+   170000000.0,
+   90000000.0,
+   60000000.0,
+   40000000.0
+  ],
+  "Capital expenditures": [
+   40000000.0,
+   45000000.0,
+   50000000.0,
+   24000000.0,
+   28000000.0
+  ],
+  "Free cash flow": [
+   110000000.0,
+   125000000.0,
+   40000000.0,
+   36000000.0,
+   12000000.0
+  ],
+  "FCF margin %": [
+   11.1111,
+   11.3636,
+   3.4783,
+   6.4286,
+   2.2222
+  ],
+  "Cash conversion (OCF / net income)": [
+   1.25,
+   1.2143,
+   0.72,
+   0.9677,
+   0.8
+  ],
+  "Cash and equivalents": [
+   200000000.0,
+   220000000.0,
+   180000000.0,
+   null,
+   150000000.0
+  ],
+  "Total debt": [
+   320000000.0,
+   330000000.0,
+   455000000.0,
+   null,
+   445000000.0
+  ],
+  "Net debt (debt \u2212 cash)": [
+   120000000.0,
+   110000000.0,
+   275000000.0,
+   null,
+   295000000.0
+  ],
+  "Accounts receivable": [
+   150000000.0,
+   170000000.0,
+   200000000.0,
+   null,
+   null
+  ],
+  "Inventory": [
+   85000000.0,
+   90000000.0,
+   120000000.0,
+   null,
+   null
+  ],
+  "Diluted shares (weighted avg)": [
+   100000000.0,
+   101000000.0,
+   105000000.0,
+   104000000.0,
+   107000000.0
+  ],
+  "Diluted share growth %": [
+   1.0101,
+   1.0,
+   3.9604,
+   null,
+   2.8846
+  ]
+ },
+ "flags": [
+  {
+   "severity": "warning",
+   "flag": "Year-to-date revenue is down 3.6% on the prior year."
+  },
+  {
+   "severity": "warning",
+   "flag": "Operating margin fell 3.5 points (17.0% to 13.5%)."
+  },
+  {
+   "severity": "watch",
+   "flag": "Operating cash flow was only 0.72\u00d7 net income; earnings may be running ahead of cash."
+  },
+  {
+   "severity": "watch",
+   "flag": "Diluted share count grew 4.0% (threshold 2.0%)."
+  },
+  {
+   "severity": "warning",
+   "flag": "Debt rose 38% while cash fell."
+  }
+ ],
+ "currency": "USD"
+}

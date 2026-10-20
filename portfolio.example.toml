@@ -1,0 +1,21 @@
+# Optional starting point for the local portfolio source and the Python research-tool's get_portfolio.
+# Copy to portfolio.toml and edit. Not needed if you add accounts and transactions in the Cockpit (recommended):
+# once the Cockpit has its own accounts, this file is only used for holding names.
+# exchange: TSX, TSXV, NYSE or NASDAQ. currency: CAD or USD. Shares only; prices come from Yahoo Finance.
+
+[[accounts]]
+name = "TFSA"
+currency = "CAD"
+holdings = [
+  { ticker = "XIU", exchange = "TSX", currency = "CAD", shares = 100, name = "iShares S&P/TSX 60 Index ETF" },
+]
+cash = [
+  { currency = "CAD", amount = 1000, kind = "cash", name = "Cash" },
+]
+
+[[accounts]]
+name = "Brokerage USD"
+currency = "USD"
+holdings = [
+  { ticker = "VTI", exchange = "NYSE", currency = "USD", shares = 10, name = "Vanguard Total Stock Market ETF" },
+]

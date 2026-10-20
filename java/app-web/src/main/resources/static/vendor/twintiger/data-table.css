@@ -1,0 +1,101 @@
+/*
+ * The opt-in parts of a long table: its footer line, pager, export and stacked phone layout.
+ * See assets/data-table.js. The parts every long table has (sticky headings, the count's type, the
+ * empty row) live in dashboard.css with the rest of the table rules.
+ */
+
+.data-table-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1rem;
+    margin-top: 0.4rem;
+}
+
+.data-table-footer .data-table-count { margin: 0; }
+
+.data-table-pager {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--muted, #5c6f7b);
+    font-size: 0.8rem;
+    font-weight: 650;
+}
+
+.data-table-pager[hidden] { display: none; }
+
+.data-table-export { margin-left: auto; }
+
+/* Rows the pager has put on another page. */
+table[data-long-table] tr[data-page-hidden] { display: none; }
+
+/*
+ * On a phone, each record reads as a card.
+ *
+ * A table wider than the screen hides the columns that matter behind a sideways scroll, and a
+ * reader on a phone rarely finds them. Below 620px the header is dropped and every value is
+ * labelled with its column's heading instead (data-label, written by data-table.js).
+ */
+@media (max-width: 620px) {
+    table[data-mobile-stack],
+    table[data-mobile-stack] tbody,
+    table[data-mobile-stack] tr,
+    table[data-mobile-stack] td {
+        display: block;
+        width: 100%;
+    }
+
+    table[data-mobile-stack] { min-width: 0; }
+
+    table[data-mobile-stack] thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    table[data-mobile-stack] tbody tr {
+        box-sizing: border-box;
+        margin-bottom: 0.6rem;
+        padding: 0.45rem 0.7rem;
+        border: 1px solid var(--border, #cfe1dd);
+        border-radius: 0.6rem;
+        background: var(--surface, #fff);
+    }
+
+    table[data-mobile-stack] tbody tr[hidden],
+    table[data-mobile-stack] tbody tr[data-page-hidden] { display: none; }
+
+    table[data-mobile-stack] tbody td {
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: minmax(6.5rem, 38%) minmax(0, 1fr);
+        gap: 0.6rem;
+        padding: 0.3rem 0;
+        border: 0;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    table[data-mobile-stack] tbody td::before {
+        content: attr(data-label);
+        color: var(--muted, #5c6f7b);
+        font-weight: 650;
+    }
+
+    /* A cell under an empty heading (row actions) or a message row needs no label column. */
+    table[data-mobile-stack] tbody td:is([data-label=""], :not([data-label])) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    table[data-mobile-stack] tbody td:is([data-label=""], :not([data-label]))::before { content: none; }
+
+    /* Sticky columns make no sense once the row is a card. */
+    table[data-mobile-stack][data-sticky-first] :is(thead, tbody) :is(th, td):first-child {
+        position: static;
+        box-shadow: none;
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "research-java": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-i",
+        "research-cockpit",
+        "java",
+        "-XX:TieredStopAtLevel=1",
+        "-jar",
+        "/app/research-mcp.jar"
+      ]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+*.pdf binary
+*.ps1 text eol=crlf
+java/app-web/src/main/resources/static/vendor/** -text

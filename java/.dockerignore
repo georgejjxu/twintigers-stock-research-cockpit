@@ -1,0 +1,5 @@
+**/target/
+.jqwik-database
+**/.jqwik-database
+Dockerfile
+.dockerignore

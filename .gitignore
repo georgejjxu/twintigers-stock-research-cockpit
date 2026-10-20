@@ -1,0 +1,30 @@
+# Secrets: never commit
+.env
+.env.*
+*.env
+secrets.env
+secrets*/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Transfer scratch
+_import/
+
+# Downloaded report PDFs and their fetch log (re-downloadable, can be large)
+filings/*/*.pdf
+filings/*/fetched.json
+
+# Java build output
+java/**/target/
+.jqwik-database
+
+# Local backups (database dumps contain your data)
+backups/
+
+# Personal data: never publish
+portfolio.toml
